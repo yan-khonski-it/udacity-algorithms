@@ -20,3 +20,14 @@ In your windows command prompt, head to your project location:
 Once inside the project folder run: **virtualenv** - virtual environemnt name.
 
 `virtualenv env`
+
+### Activate virtualenv 
+On Windows, virtualenv (venv) creates a batch file called 
+
+`\env\Scripts\activate.bat`
+To activate virtualenv on Windows, and activate the script is in the Scripts folder :
+
+`\pathto\env\Scripts\activate`
+Example: 
+
+`C:\Users\'Username'\venv\Scripts\activate.bat`
