@@ -9,12 +9,27 @@ def naive(a, b):
     while x > 0:
         z = z + y
         x = x - 1
+
+    return z
+
+
+# 1 000 000 operations - 3 seconds for 2 ^ 24.
+def russian(a, b):
+    x = a
+    y = b
+    z = 0
+    while x > 0:
+        if x % 2 == 1:
+            z = z + y
+
+        y = y << 1
+        x = x >> 1
+
     return z
 
 
 # Faster version of naive. 1 000 000 operations 2.5 seconds for 2 ^ 24
 def naive_improved(a, b):
-    res = 0
     if a == 0 or b == 0:
         return 0
 
@@ -62,7 +77,7 @@ def calculate_powers_2():
     print(powers_2_array)
     for pow2 in powers_2_array:
         start = time.time()
-        res = naive(pow2, pow2)
+        res = russian(pow2, pow2)
         end = time.time()
         total = end - start
         print(str(pow2) + ' ' + str(total) + ' ' + str(res))
