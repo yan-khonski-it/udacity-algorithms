@@ -61,6 +61,7 @@ def visit_node_implementation(node):
 def bsf(graph, visit_node, starting_node=0):
     """
     Performs breadth-first search algorithm on the graph.
+    Note, here we visit edges, so it is OK for us to visit the same node more than once.
     """
 
     visited_edges = set()
@@ -88,11 +89,46 @@ def bsf(graph, visit_node, starting_node=0):
                 visited_edges.add((visited_node, node))
 
 
+def dsf(graph, visit_node, starting_node=0):
+    """
+    Performs depth-first search algorithm on the graph.
+    Note, here we visit edges, so it is OK for us to visit the same node more than once.
+    """
+
+    visited_edges = set()
+
+    # next node to be visited is the last inserted element of the stack.
+    stack = []
+
+    next_nodes = graph[starting_node]
+
+    visit_node(starting_node)
+    for node in next_nodes:
+        stack.append((starting_node, node))
+
+    while len(stack) > 0:
+        visited_edge = stack.pop()
+        if visited_edge in visited_edges:
+            continue
+
+        visited_node = visited_edge[1]
+
+        # visit node
+        visit_node(visited_node)
+        visited_edges.add(visited_edge)
+
+        next_nodes = graph[visited_node]
+
+        for node in next_nodes:
+            if not (visited_node, node) in visited_edges:
+                stack.append((visited_node, node))
+
+
 def graph_demo():
     graph = build_sample_graph()
     print_graph(graph)
     print('\n\n')
-    bsf(graph, visit_node_implementation)
+    dsf(graph, visit_node_implementation)
 
 
 def main():
